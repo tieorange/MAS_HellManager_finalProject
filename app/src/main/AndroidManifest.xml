@@ -18,7 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TortureDepActivity"></activity>
+        <activity android:name=".AddTortureDepActivity" />
+        <activity
+            android:name=".TortureDepsActivity"
+            android:label="@string/title_activity_torture_dep"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

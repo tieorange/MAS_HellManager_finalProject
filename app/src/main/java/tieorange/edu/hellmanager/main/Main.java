@@ -1,6 +1,8 @@
 package tieorange.edu.hellmanager.main;
 
 
+import android.view.View;
+
 import java.util.*;
 
 import tieorange.edu.hellmanager.main.HellPets.HellPet;
@@ -25,6 +27,7 @@ public class Main {
         Sinner sinner = new Sinner("bob", "marley", new Date(), sinnerTypes, 3, 3);
         sinner.Kill();
         sinner.tryToLie();
+
 
 
         TortureDepartment tortureDepartment = new TortureDepartment("boiling room");

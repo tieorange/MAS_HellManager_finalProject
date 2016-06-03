@@ -3,6 +3,7 @@ package tieorange.edu.hellmanager.main;
 
 import android.support.annotation.NonNull;
 
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -28,7 +29,12 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
     private String name;
     private Set<SufferingProcess> sufferingProcesses = new HashSet<>(); // with an attribute
     private Map<String, Torturer> torturersMap = new HashMap<>(); // qualified
+
     private Set<PunishmentTool> punishmentTools = new TreeSet<>(new PunishmentToolComparator());
+
+
+    public TortureDepartment() {
+    }
 
     public TortureDepartment(String name) {
         super();

@@ -1,10 +1,11 @@
 package tieorange.edu.hellmanager.main.PunishmentTools;
 
 
-import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import tieorange.edu.hellmanager.main.TortureDepartment;
 import tieorange.edu.hellmanager.main.Torturers.IExploder;
 
@@ -12,15 +13,14 @@ import tieorange.edu.hellmanager.main.Torturers.IExploder;
  * Created by tieorange on 22/04/16.
  */
 // teacher
-public abstract class PunishmentTool implements Serializable {
+public abstract class PunishmentTool{
     private static final long serialVersionUID = -222864131214757024L;
 
-    @DatabaseField(generatedId = true, columnName = "punishmentToolId")
-    public int punishmentToolId;
+    public int id;
 
-    @DatabaseField(columnName = "name")
     private String name;
     private int damage;
+
     private TortureDepartment tortureDepartment;
 
     private Ice elementalPowerIce;

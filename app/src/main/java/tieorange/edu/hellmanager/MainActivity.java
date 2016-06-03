@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.main_add_torture_dep)
+    @OnClick(R.id.main_torture_deps)
     public void onClickAddTortureDep() {
-        Intent intent = new Intent(this, TortureDepActivity.class);
+        Intent intent = new Intent(this, TortureDepsActivity.class);
         startActivity(intent);
     }
 
