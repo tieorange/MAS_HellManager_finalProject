@@ -23,13 +23,18 @@ import tieorange.edu.hellmanager.main.Torturers.Torturer;
 
 public class TortureDepartmentEntity extends RealmObject {
     @PrimaryKey
-    private int id;
+    public String id;
     @Required
-    private String name;
+    public String name;
 
 //    private RealmList<SufferingProcess> sufferingProcesses = new HashSet<>(); // with an attribute
 //    private Map<String, Torturer> torturersMap = new HashMap<>(); // qualified
 
-    private RealmList<PunishmentToolEntity> punishmentTools;
+    public RealmList<PunishmentToolEntity> punishmentTools;
 
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

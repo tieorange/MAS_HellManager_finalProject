@@ -3,6 +3,7 @@
     package="tieorange.edu.hellmanager">
 
     <application
+        android:name=".HellManagerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

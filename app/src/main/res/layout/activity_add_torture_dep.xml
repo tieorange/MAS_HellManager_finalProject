@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,7 +18,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
