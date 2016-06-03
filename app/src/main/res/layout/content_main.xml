@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="tieorange.edu.hellmanager.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/main_add_torture_dep"
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:text="Add torture department"
+        app:layout_constraintTop_toBottomOf="@+id/main_view_torture_dep"
+        android:layout_marginTop="32dp"
+        app:layout_constraintRight_toRightOf="@+id/main_view_torture_dep" />
+
+    <Button
+        android:id="@+id/main_view_torture_dep"
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:text="View Torture departments"
+        app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintRight_toRightOf="@+id/constraintLayout" />
+</android.support.constraint.ConstraintLayout>
