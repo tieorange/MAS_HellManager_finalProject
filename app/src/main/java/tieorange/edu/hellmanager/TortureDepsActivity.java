@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,6 +21,7 @@ public class TortureDepsActivity extends AppCompatActivity {
     public ListView mUiListView;
     private Realm mRealm;
     private ArrayAdapter mAdapter;
+    private RealmResults<TortureDepartmentEntity> mDepsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,18 @@ public class TortureDepsActivity extends AppCompatActivity {
     }
 
     private void setupListView() {
-        final RealmResults<TortureDepartmentEntity> depsList = getDepsList();
-        mAdapter = new ArrayAdapter(this, R.layout.item_department, R.id.name, depsList);
+        mDepsList = getDepsList();
+        mAdapter = new ArrayAdapter(this, R.layout.item_department, R.id.name, mDepsList);
         mUiListView.setAdapter(mAdapter);
+        mUiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TortureDepartmentEntity selectedDep = mDepsList.get(position);
+                Intent intent = new Intent(TortureDepsActivity.this, DepartmentActivity.class);
+                intent.putExtra(DepartmentActivity.EXTRA_ID, selectedDep.id);
+                startActivity(intent);
+            }
+        });
 
     }
 
