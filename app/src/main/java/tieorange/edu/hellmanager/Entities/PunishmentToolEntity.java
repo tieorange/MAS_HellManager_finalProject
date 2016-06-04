@@ -22,6 +22,8 @@ public class PunishmentToolEntity extends RealmObject {
 
     public TortureDepartmentEntity tortureDepartment;
 
+    public PunishmentToolEntity() {
+    }
 
     @Override
     public String toString() {

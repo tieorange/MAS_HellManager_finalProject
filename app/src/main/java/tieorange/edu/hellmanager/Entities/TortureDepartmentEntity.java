@@ -31,6 +31,7 @@ public class TortureDepartmentEntity extends RealmObject {
 //    private Map<String, Torturer> torturersMap = new HashMap<>(); // qualified
 
     public RealmList<PunishmentToolEntity> punishmentTools;
+    public RealmList<SufferingProcessEntity> sufferingProcessesList;
 
 
     @Override
