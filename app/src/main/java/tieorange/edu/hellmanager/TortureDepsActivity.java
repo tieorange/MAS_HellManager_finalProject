@@ -56,8 +56,9 @@ public class TortureDepsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TortureDepartmentEntity selectedDep = mDepsList.get(position);
-                Intent intent = new Intent(TortureDepsActivity.this, DepartmentActivity.class);
-                intent.putExtra(DepartmentActivity.EXTRA_ID, selectedDep.id);
+
+                Intent intent = new Intent(TortureDepsActivity.this, DepartmentTabsActivity.class);
+                intent.putExtra(DepartmentTabsActivity.EXTRA_ID, selectedDep.id);
                 startActivity(intent);
             }
         });

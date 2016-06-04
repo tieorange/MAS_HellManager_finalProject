@@ -24,7 +24,16 @@
             android:name=".TortureDepsActivity"
             android:label="@string/title_activity_torture_dep"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DepartmentActivity"></activity>
+        <activity android:name=".DepartmentActivity" />
+        <activity
+            android:name=".DepartmentTabsActivity"
+            android:label="@string/title_activity_department_tabs"
+            android:parentActivityName=".TortureDepsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="TortureDepsActivity" />
+        </activity>
     </application>
 
 </manifest>
