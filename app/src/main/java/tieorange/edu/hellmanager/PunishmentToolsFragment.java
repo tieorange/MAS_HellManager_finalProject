@@ -1,15 +1,21 @@
 package tieorange.edu.hellmanager;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
+import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
+import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
 
 
 /**
@@ -29,7 +35,9 @@ public class PunishmentToolsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private RealmResults<PunishmentToolEntity> mList;
+    private DepartmentTabsActivity mActivity;
+    private ArrayAdapter mAdapter;
 
     public PunishmentToolsFragment() {
         // Required empty public constructor
@@ -67,12 +75,32 @@ public class PunishmentToolsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_with_list, container, false);
-
         ButterKnife.bind(this, view);
+        mActivity = (DepartmentTabsActivity) getActivity();
 
+        setupListView();
 
         return view;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupListView();
+    }
+
+    private void setupListView() {
+        mList = getList();
+        mAdapter = new ArrayAdapter(mActivity, R.layout.item_department, R.id.name, mList);
+        mUiListView.setAdapter(mAdapter);
+
+    }
+
+    private RealmResults<PunishmentToolEntity> getList() {
+        final RealmResults<PunishmentToolEntity> all = mActivity.mRealm.where(PunishmentToolEntity.class).findAll();
+        // TODO: 04/06/16 .equalTo("tortureDepartment", mActivity.mDepartment)
+        return all;
     }
 
 }

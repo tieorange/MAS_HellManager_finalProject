@@ -9,9 +9,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddTortureDepActivity" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name=".TortureDepsActivity"
+            android:label="@string/title_activity_torture_dep"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddTortureDepActivity" />
-        <activity
-            android:name=".TortureDepsActivity"
-            android:label="@string/title_activity_torture_dep"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DepartmentActivity" />
         <activity
             android:name=".DepartmentTabsActivity"
@@ -34,6 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="TortureDepsActivity" />
         </activity>
+        <activity
+            android:name=".AddPunishmentToolActivity"
+            android:label="Add punishment tool" />
     </application>
 
 </manifest>

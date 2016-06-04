@@ -38,8 +38,8 @@ public class DepartmentTabsActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private TortureDepartmentEntity mDepartment;
-    private Realm mRealm;
+    public TortureDepartmentEntity mDepartment;
+    public Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +65,30 @@ public class DepartmentTabsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final int currentItem = mViewPager.getCurrentItem();
-                Log.d(TAG, "onClick: currentItem = " + currentItem);
+                final int currentTabIndex = mViewPager.getCurrentItem();
+                switch (currentTabIndex) {
+                    case 0:
+                        Intent intent = new Intent(DepartmentTabsActivity.this, AddPunishmentToolActivity.class);
+                        intent.putExtra(AddPunishmentToolActivity.EXTRA_ID, mDepartment.id);
+                        startActivity(intent);
+                        break;
+                    case 1:
+
+                        break;
+                    default:
+
+                }
             }
         });
 
-        getExtras();
+         getExtras();
     }
 
     private void getExtras() {
         final Intent intent = getIntent();
         final String id = intent.getStringExtra(EXTRA_ID);
+        if (id == null) return;
+
         mDepartment = mRealm.where(TortureDepartmentEntity.class).equalTo("id", id).findFirst();
         setTitle(mDepartment.name);
     }
@@ -138,9 +151,9 @@ public class DepartmentTabsActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Tools";
                 case 1:
-                    return "SECTION 2";
+                    return "Sinners";
                 case 2:
                     return "SECTION 3";
             }
