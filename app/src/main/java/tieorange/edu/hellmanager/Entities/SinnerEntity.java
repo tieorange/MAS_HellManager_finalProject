@@ -1,6 +1,9 @@
 package tieorange.edu.hellmanager.Entities;
 
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -118,8 +121,11 @@ public class SinnerEntity extends RealmObject {
 
     @Override
     public String toString() {
-        final String format = MessageFormat.format("{0}{1} \nbirth date: {2}",
-                getFirstName(), getLastName(), getBirthDate().toString());
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        String birthDate = dateFormat.format(getBirthDate());
+
+        final String format = MessageFormat.format("{0} {1} \nbirth date: {2}",
+                getFirstName(), getLastName(), birthDate);
         StringBuilder result = new StringBuilder(format.toString());
         if (isLiar)
             result.append("\nlies: " + getAmountOfLies());
