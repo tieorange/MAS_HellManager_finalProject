@@ -9,9 +9,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddTortureDepActivity" />
+        <activity android:name=".Activity.AddTortureDepActivity" />
         <activity
-            android:name=".TortureDepsActivity"
+            android:name=".Activity.TortureDepsActivity"
             android:label="@string/title_activity_torture_dep"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,17 +22,18 @@
         </activity>
         <activity android:name=".DepartmentActivity" />
         <activity
-            android:name=".DepartmentTabsActivity"
+            android:name=".Activity.DepartmentTabsActivity"
             android:label="@string/title_activity_department_tabs"
-            android:parentActivityName=".TortureDepsActivity"
+            android:parentActivityName=".Activity.TortureDepsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="TortureDepsActivity" />
+                android:value=".Activity.TortureDepsActivity" />
         </activity>
         <activity
-            android:name=".AddPunishmentToolActivity"
+            android:name=".Activity.AddPunishmentToolActivity"
             android:label="Add punishment tool" />
+        <activity android:name=".Activity.AddSinnerActivity"></activity>
     </application>
 
 </manifest>

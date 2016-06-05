@@ -1,4 +1,4 @@
-package tieorange.edu.hellmanager;
+package tieorange.edu.hellmanager.Activity;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -17,6 +17,10 @@ import android.view.View;
 
 import io.realm.Realm;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
+import tieorange.edu.hellmanager.Fragments.PunishmentToolsFragment;
+import tieorange.edu.hellmanager.Fragments.SinnersFragment;
+import tieorange.edu.hellmanager.HellManagerApplication;
+import tieorange.edu.hellmanager.R;
 
 public class DepartmentTabsActivity extends AppCompatActivity {
 
@@ -66,20 +70,20 @@ public class DepartmentTabsActivity extends AppCompatActivity {
                 final int currentTabIndex = mViewPager.getCurrentItem();
                 switch (currentTabIndex) {
                     case 0:
-                        Intent intent = new Intent(DepartmentTabsActivity.this, AddPunishmentToolActivity.class);
-                        intent.putExtra(AddPunishmentToolActivity.EXTRA_ID, mDepartment.id);
-                        startActivity(intent);
+                        Intent intentTool = new Intent(DepartmentTabsActivity.this, AddPunishmentToolActivity.class);
+                        intentTool.putExtra(AddPunishmentToolActivity.EXTRA_ID, mDepartment.id);
+                        startActivity(intentTool);
                         break;
                     case 1:
-
+                        Intent intentSinner = new Intent(DepartmentTabsActivity.this, AddSinnerActivity.class);
+                        intentSinner.putExtra(AddSinnerActivity.EXTRA_ID, mDepartment.id);
+                        startActivity(intentSinner);
                         break;
-                    default:
-
                 }
             }
         });
 
-         getExtras();
+        getExtras();
     }
 
     private void getExtras() {

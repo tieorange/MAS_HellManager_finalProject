@@ -1,4 +1,4 @@
-package tieorange.edu.hellmanager;
+package tieorange.edu.hellmanager.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
+import tieorange.edu.hellmanager.HellManagerApplication;
+import tieorange.edu.hellmanager.R;
 
 public class TortureDepsActivity extends AppCompatActivity {
     @Bind(R.id.listView)

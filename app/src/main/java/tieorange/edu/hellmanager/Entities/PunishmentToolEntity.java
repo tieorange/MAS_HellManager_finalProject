@@ -1,6 +1,7 @@
 package tieorange.edu.hellmanager.Entities;
 
 import java.text.MessageFormat;
+import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -23,10 +24,11 @@ public class PunishmentToolEntity extends RealmObject {
     public TortureDepartmentEntity tortureDepartment;
 
     public PunishmentToolEntity() {
+        id = UUID.randomUUID().toString();
     }
 
     @Override
     public String toString() {
-        return MessageFormat.format("name = {0} \ndamage = {1}", name, damage);
+        return MessageFormat.format("{0} \ndamage = {1}", name, damage);
     }
 }

@@ -1,6 +1,7 @@
 package tieorange.edu.hellmanager.Entities;
 
 import java.util.Date;
+import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -20,10 +21,11 @@ public class SufferingProcessEntity extends RealmObject {
     private SinnerEntity sinner;
 
     public SufferingProcessEntity() {
+        id = UUID.randomUUID().toString();
     }
 
-    public SufferingProcessEntity(String id, Date startDate, Date finishDate, TortureDepartmentEntity tortureDepartment, SinnerEntity sinner) {
-        this.id = id;
+    public SufferingProcessEntity(Date startDate, Date finishDate, TortureDepartmentEntity tortureDepartment, SinnerEntity sinner) {
+        this.id = UUID.randomUUID().toString();
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.tortureDepartment = tortureDepartment;

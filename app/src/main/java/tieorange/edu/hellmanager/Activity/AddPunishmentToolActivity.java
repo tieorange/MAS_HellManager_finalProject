@@ -1,4 +1,4 @@
-package tieorange.edu.hellmanager;
+package tieorange.edu.hellmanager.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
+import tieorange.edu.hellmanager.HellManagerApplication;
+import tieorange.edu.hellmanager.R;
 
 public class AddPunishmentToolActivity extends AppCompatActivity {
 
@@ -72,19 +74,17 @@ public class AddPunishmentToolActivity extends AppCompatActivity {
         int temperature = Integer.parseInt(mUiTemperature.getText().toString());
 
         PunishmentToolEntity punishmentToolEntity = new PunishmentToolEntity();
-        punishmentToolEntity.id = UUID.randomUUID().toString();
         punishmentToolEntity.tortureDepartment = mDepartment;
         punishmentToolEntity.name = name;
-
-        mRealm.beginTransaction();
-        mDepartment.punishmentTools.add(punishmentToolEntity);
-
         if (mIsFlame)
             punishmentToolEntity.maxTemperature = temperature;
         else
             punishmentToolEntity.minTemperature = temperature;
 
         punishmentToolEntity.damage = damage;
+
+        mRealm.beginTransaction();
+        mDepartment.punishmentTools.add(punishmentToolEntity);
 
         mRealm.copyToRealmOrUpdate(punishmentToolEntity);
         mRealm.copyToRealmOrUpdate(mDepartment);

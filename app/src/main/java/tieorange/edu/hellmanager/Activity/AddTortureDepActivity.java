@@ -1,6 +1,5 @@
-package tieorange.edu.hellmanager;
+package tieorange.edu.hellmanager.Activity;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,6 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
+import tieorange.edu.hellmanager.HellManagerApplication;
+import tieorange.edu.hellmanager.R;
 
 public class AddTortureDepActivity extends AppCompatActivity {
 

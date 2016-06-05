@@ -1,21 +1,20 @@
-package tieorange.edu.hellmanager;
+package tieorange.edu.hellmanager.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.realm.RealmResults;
+import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
-import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
+import tieorange.edu.hellmanager.R;
 
 
 /**
@@ -41,6 +40,13 @@ public class PunishmentToolsFragment extends SuperListFragment {
 
     public PunishmentToolsFragment() {
         // Required empty public constructor
+    }
+
+    public static PunishmentToolsFragment newInstance(String param1, String param2) {
+        PunishmentToolsFragment fragment = new PunishmentToolsFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 

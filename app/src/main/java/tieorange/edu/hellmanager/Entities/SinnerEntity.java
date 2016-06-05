@@ -1,6 +1,8 @@
 package tieorange.edu.hellmanager.Entities;
 
+import java.text.MessageFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -18,7 +20,7 @@ public class SinnerEntity extends RealmObject {
     private boolean isLiar = false;
     private boolean isMurderer = false;
 
-    private RealmList<SufferingProcessEntity> sufferingProcessList;
+    private RealmList<SufferingProcessEntity> sufferingProcessList = new RealmList<>();
     private String firstName;
     private String lastName;
     private Date birthDate;
@@ -27,10 +29,11 @@ public class SinnerEntity extends RealmObject {
     private Integer amountOfVictims;
 
     public SinnerEntity() {
+        this.id = UUID.randomUUID().toString();
     }
 
-    public SinnerEntity(String id, boolean isLiar, boolean isMurderer, RealmList<SufferingProcessEntity> sufferingProcessList, String firstName, String lastName, Date birthDate, Integer amountOfLies, Integer amountOfVictims) {
-        this.id = id;
+    public SinnerEntity(boolean isLiar, boolean isMurderer, RealmList<SufferingProcessEntity> sufferingProcessList, String firstName, String lastName, Date birthDate, Integer amountOfLies, Integer amountOfVictims) {
+        this.id = UUID.randomUUID().toString();
         this.isLiar = isLiar;
         this.isMurderer = isMurderer;
         this.sufferingProcessList = sufferingProcessList;
@@ -111,5 +114,17 @@ public class SinnerEntity extends RealmObject {
 
     public void setAmountOfVictims(Integer amountOfVictims) {
         this.amountOfVictims = amountOfVictims;
+    }
+
+    @Override
+    public String toString() {
+        final String format = MessageFormat.format("{0}{1} \nbirth date: {2}",
+                getFirstName(), getLastName(), getBirthDate().toString());
+        StringBuilder result = new StringBuilder(format.toString());
+        if (isLiar)
+            result.append("\nlies: " + getAmountOfLies());
+        if (isMurderer)
+            result.append("\nvictims: " + getAmountOfVictims());
+        return result.toString();
     }
 }
