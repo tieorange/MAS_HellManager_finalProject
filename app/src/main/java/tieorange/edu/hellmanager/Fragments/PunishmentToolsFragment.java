@@ -3,11 +3,17 @@ package tieorange.edu.hellmanager.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.kennyc.bottomsheet.BottomSheet;
+import com.kennyc.bottomsheet.BottomSheetListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,6 +21,7 @@ import io.realm.RealmResults;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.R;
+import tieorange.edu.hellmanager.main.PunishmentTools.PunishmentTool;
 
 
 /**
@@ -23,6 +30,7 @@ import tieorange.edu.hellmanager.R;
  * create an instance of this fragment.
  */
 public class PunishmentToolsFragment extends SuperListFragment {
+    private static final String TAG = PunishmentToolsFragment.class.getCanonicalName();
     @Bind(R.id.listView)
     ListView mUiListView;
 
@@ -74,7 +82,52 @@ public class PunishmentToolsFragment extends SuperListFragment {
         mList = getList();
         mAdapter = new ArrayAdapter(mActivity, R.layout.item_department, R.id.name, mList);
         mUiListView.setAdapter(mAdapter);
+        mUiListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                onListItemSelect(position);
+                return true;
+            }
+        });
 
+    }
+
+    private void onListItemSelect(int position) {
+        BottomSheetListener myListener = new BottomSheetListener() {
+
+            @Override
+            public void onSheetItemSelected(MenuItem menuItem) {
+                final int itemId = menuItem.getItemId();
+                switch (itemId) {
+                    case R.id.action_remove:
+                        Log.d(TAG, "onSheetItemSelected: remove = " + itemId);
+
+                        break;
+                    case R.id.action_edit:
+                        Log.d(TAG, "onSheetItemSelected: edit = " + itemId);
+
+                        break;
+                    default:
+                        Log.d(TAG, "onSheetItemSelected: default = " + itemId);
+                }
+            }
+
+            @Override
+            public void onSheetShown() {
+
+            }
+
+            @Override
+            public void onSheetDismissed(int i) {
+
+            }
+        };
+
+        new BottomSheet.Builder(mActivity)
+                .setSheet(R.menu.menu_bottom_sheet)
+                .setTitle("Options")
+                .setListener(myListener)
+                .show();
     }
 
     private RealmResults<PunishmentToolEntity> getList() {
