@@ -3,25 +3,22 @@ package tieorange.edu.hellmanager.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.kennyc.bottomsheet.BottomSheet;
-import com.kennyc.bottomsheet.BottomSheetListener;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemLongClick;
 import io.realm.RealmResults;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
+import tieorange.edu.hellmanager.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.R;
-import tieorange.edu.hellmanager.main.PunishmentTools.PunishmentTool;
+import tieorange.edu.hellmanager.Tools;
 
 
 /**
@@ -82,53 +79,22 @@ public class PunishmentToolsFragment extends SuperListFragment {
         mList = getList();
         mAdapter = new ArrayAdapter(mActivity, R.layout.item_department, R.id.name, mList);
         mUiListView.setAdapter(mAdapter);
-        mUiListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+    }
+
+    @OnItemLongClick(R.id.listView)
+    public boolean onItemLongClick(int position) {
+        final PunishmentToolEntity punishmentToolEntity = mList.get(position);
+        Tools.onListItemSelect(mActivity, mActivity.mRealm, punishmentToolEntity, new OnItemRemovedFromRealm() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                onListItemSelect(position);
-                return true;
+            public void onItemRemoved() {
+                setupListView();
             }
         });
 
+        return true;
     }
 
-    private void onListItemSelect(int position) {
-        BottomSheetListener myListener = new BottomSheetListener() {
-
-            @Override
-            public void onSheetItemSelected(MenuItem menuItem) {
-                final int itemId = menuItem.getItemId();
-                switch (itemId) {
-                    case R.id.action_remove:
-                        Log.d(TAG, "onSheetItemSelected: remove = " + itemId);
-
-                        break;
-                    case R.id.action_edit:
-                        Log.d(TAG, "onSheetItemSelected: edit = " + itemId);
-
-                        break;
-                    default:
-                        Log.d(TAG, "onSheetItemSelected: default = " + itemId);
-                }
-            }
-
-            @Override
-            public void onSheetShown() {
-
-            }
-
-            @Override
-            public void onSheetDismissed(int i) {
-
-            }
-        };
-
-        new BottomSheet.Builder(mActivity)
-                .setSheet(R.menu.menu_bottom_sheet)
-                .setTitle("Options")
-                .setListener(myListener)
-                .show();
-    }
 
     private RealmResults<PunishmentToolEntity> getList() {
         final String depId = mActivity.mDepartment.id;

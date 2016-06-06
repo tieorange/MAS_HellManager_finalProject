@@ -154,7 +154,7 @@ public class DepartmentTabsActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Tools";
+                    return "Punishment Tools";
                 case 1:
                     return "Sinners";
                 case 2:
