@@ -120,7 +120,7 @@ public class AddSinnerActivity extends AppCompatActivity {
 
         // Dep
         mRealm.beginTransaction();
-        sinnerEntity.getSufferingProcessList().add(sufferingProcessEntity);
+//        sinnerEntity.getSufferingProcessList().add(sufferingProcessEntity);
 
         sufferingProcessEntity.setTortureDepartment(mDepartment);
         sufferingProcessEntity.setSinner(sinnerEntity);

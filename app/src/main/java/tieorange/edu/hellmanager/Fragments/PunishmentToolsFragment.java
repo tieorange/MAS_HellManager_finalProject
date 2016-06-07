@@ -84,8 +84,8 @@ public class PunishmentToolsFragment extends SuperListFragment {
 
     @OnItemLongClick(R.id.listView)
     public boolean onItemLongClick(int position) {
-        final PunishmentToolEntity punishmentToolEntity = mList.get(position);
-        Tools.onListItemSelect(mActivity, mActivity.mRealm, punishmentToolEntity, new OnItemRemovedFromRealm() {
+        final PunishmentToolEntity entity = mList.get(position);
+        Tools.onListItemSelect(mActivity, mActivity.mRealm, entity, new OnItemRemovedFromRealm() {
             @Override
             public void onItemRemoved() {
                 setupListView();

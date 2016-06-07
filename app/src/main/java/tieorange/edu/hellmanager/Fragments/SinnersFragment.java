@@ -15,11 +15,16 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemLongClick;
 import io.realm.RealmResults;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
+import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
+import tieorange.edu.hellmanager.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.R;
+import tieorange.edu.hellmanager.Tools;
+import tieorange.edu.hellmanager.main.Sinners.Sinner;
 
 
 /**
@@ -76,15 +81,25 @@ public class SinnersFragment extends SuperListFragment {
     private void setupListView() {
         mList = getList();
         mAdapter = new ArrayAdapter(mActivity, R.layout.item_department, R.id.name, mList);
-        final String s = mList.get(0).toString();
-        Log.d(TAG, "setupListView: " + s);
         mUiListView.setAdapter(mAdapter);
+    }
+
+    @OnItemLongClick(R.id.listView)
+    public boolean onItemLongClick(int position) {
+        final SinnerEntity entity = mList.get(position);
+        Tools.onListItemSelect(mActivity, mActivity.mRealm, entity, new OnItemRemovedFromRealm() {
+            @Override
+            public void onItemRemoved() {
+                setupListView();
+            }
+        });
+
+        return true;
     }
 
     private List<SinnerEntity> getList() {
         List<SinnerEntity> results = new ArrayList<>();
         List<SinnerEntity> finalResults = new ArrayList<>();
-
 
         final String depId = mActivity.mDepartment.id;
         final RealmResults<SufferingProcessEntity> allSufferingProcesses = mActivity.mRealm
@@ -92,21 +107,11 @@ public class SinnersFragment extends SuperListFragment {
                 .equalTo("tortureDepartment.id", depId)
                 .findAll();
 
-     /*   mActivity.mRealm.where(SinnerEntity.class)
-                .equalTo("sufferingProcessList", allSufferingProcesses*/
-
-
         for (SufferingProcessEntity process : allSufferingProcesses) {
             final SinnerEntity sinner = process.getSinner();
+            if (sinner == null) continue;
             results.add(sinner);
         }
-
-        /*for (SinnerEntity sinner : results) {
-            final String id = sinner.getId();
-            final SinnerEntity foundSinner = mActivity.mRealm.where(SinnerEntity.class)
-                    .equalTo("id", id).findFirst();
-            finalResults.add(foundSinner);
-        }*/
         return results;
     }
 
