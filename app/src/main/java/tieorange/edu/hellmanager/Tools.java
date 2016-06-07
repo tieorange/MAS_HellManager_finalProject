@@ -14,6 +14,7 @@ import io.realm.Realm;
 import io.realm.RealmObject;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
+import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
 import tieorange.edu.hellmanager.Fragments.PunishmentToolsFragment;
 import tieorange.edu.hellmanager.R;
 
@@ -59,5 +60,31 @@ public class Tools {
         realm.beginTransaction();
         realmObject.deleteFromRealm();
         realm.commitTransaction();
+    }
+
+    public static void populateDummyData(Realm mRealm) {
+      /*  mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                // Dep:
+                TortureDepartmentEntity tortureDepartmentEntity = new TortureDepartmentEntity();
+                tortureDepartmentEntity.name = "Boiling room";
+
+                // Tool
+                PunishmentToolEntity punishmentToolEntity = new PunishmentToolEntity();
+                punishmentToolEntity.name = "Hummer";
+                punishmentToolEntity.damage = 30;
+                punishmentToolEntity.minTemperature = 2;
+                punishmentToolEntity.tortureDepartment = tortureDepartmentEntity;
+            }
+        });*/
+
+        TortureDepartmentEntity entity = new TortureDepartmentEntity();
+        entity.name = "Boiling room";
+//        entity.id = UUID.randomUUID().toString();
+
+        mRealm.beginTransaction();
+        mRealm.copyToRealmOrUpdate(entity);
+        mRealm.commitTransaction();
     }
 }

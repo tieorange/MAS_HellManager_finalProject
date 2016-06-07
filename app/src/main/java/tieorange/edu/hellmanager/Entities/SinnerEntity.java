@@ -23,7 +23,7 @@ public class SinnerEntity extends RealmObject {
     private boolean isLiar = false;
     private boolean isMurderer = false;
 
-//    private RealmList<SufferingProcessEntity> sufferingProcessList = new RealmList<>();
+    private RealmList<SufferingProcessEntity> sufferingProcessList = new RealmList<>();
     private String firstName;
     private String lastName;
     private Date birthDate;
@@ -71,13 +71,13 @@ public class SinnerEntity extends RealmObject {
         isMurderer = murderer;
     }
 
-    /*public RealmList<SufferingProcessEntity> getSufferingProcessList() {
+    public RealmList<SufferingProcessEntity> getSufferingProcessList() {
         return sufferingProcessList;
     }
 
     public void setSufferingProcessList(RealmList<SufferingProcessEntity> sufferingProcessList) {
         this.sufferingProcessList = sufferingProcessList;
-    }*/
+    }
 
     public String getFirstName() {
         return firstName;

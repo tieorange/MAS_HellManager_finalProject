@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.AddTortureDepActivity" />
         <activity
-            android:name=".Activity.TortureDepsActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/title_activity_torture_dep"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,11 +24,11 @@
         <activity
             android:name=".Activity.DepartmentTabsActivity"
             android:label="@string/title_activity_department_tabs"
-            android:parentActivityName=".Activity.TortureDepsActivity"
+            android:parentActivityName=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.TortureDepsActivity" />
+                android:value=".Activity.MainActivity" />
         </activity>
         <activity
             android:name=".Activity.AddPunishmentToolActivity"

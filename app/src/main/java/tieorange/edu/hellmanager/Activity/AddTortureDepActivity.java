@@ -38,7 +38,7 @@ public class AddTortureDepActivity extends AppCompatActivity {
 
         TortureDepartmentEntity entity = new TortureDepartmentEntity();
         entity.name = name;
-        entity.id = UUID.randomUUID().toString();
+//        entity.id = UUID.randomUUID().toString();
 
         mRealm.beginTransaction();
         mRealm.copyToRealmOrUpdate(entity);

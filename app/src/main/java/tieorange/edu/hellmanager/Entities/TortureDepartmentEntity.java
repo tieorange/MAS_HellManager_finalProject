@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -33,6 +34,9 @@ public class TortureDepartmentEntity extends RealmObject {
     public RealmList<PunishmentToolEntity> punishmentTools;
     public RealmList<SufferingProcessEntity> sufferingProcessesList;
 
+    public TortureDepartmentEntity() {
+        id = UUID.randomUUID().toString();
+    }
 
     @Override
     public String toString() {
