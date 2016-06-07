@@ -63,28 +63,22 @@ public class Tools {
     }
 
     public static void populateDummyData(Realm mRealm) {
-      /*  mRealm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                // Dep:
-                TortureDepartmentEntity tortureDepartmentEntity = new TortureDepartmentEntity();
-                tortureDepartmentEntity.name = "Boiling room";
+        // Dep
+        TortureDepartmentEntity tortureDepartmentEntity = new TortureDepartmentEntity();
+        tortureDepartmentEntity.name = "Boiling room";
 
-                // Tool
-                PunishmentToolEntity punishmentToolEntity = new PunishmentToolEntity();
-                punishmentToolEntity.name = "Hummer";
-                punishmentToolEntity.damage = 30;
-                punishmentToolEntity.minTemperature = 2;
-                punishmentToolEntity.tortureDepartment = tortureDepartmentEntity;
-            }
-        });*/
+        // Tool
+        PunishmentToolEntity punishmentToolEntity = new PunishmentToolEntity();
+        punishmentToolEntity.name = "Hummer";
+        punishmentToolEntity.damage = 30;
+        punishmentToolEntity.minTemperature = 2;
+        punishmentToolEntity.tortureDepartment = tortureDepartmentEntity;
 
-        TortureDepartmentEntity entity = new TortureDepartmentEntity();
-        entity.name = "Boiling room";
-//        entity.id = UUID.randomUUID().toString();
+//        tortureDepartmentEntity.id = UUID.randomUUID().toString();
 
         mRealm.beginTransaction();
-        mRealm.copyToRealmOrUpdate(entity);
+        mRealm.copyToRealmOrUpdate(tortureDepartmentEntity);
+        mRealm.copyToRealmOrUpdate(punishmentToolEntity);
         mRealm.commitTransaction();
     }
 }
