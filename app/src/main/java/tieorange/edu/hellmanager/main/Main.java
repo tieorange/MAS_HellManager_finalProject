@@ -29,7 +29,6 @@ public class Main {
         sinner.tryToLie();
 
 
-
         TortureDepartment tortureDepartment = new TortureDepartment("boiling room");
 
         // DYNAMIC

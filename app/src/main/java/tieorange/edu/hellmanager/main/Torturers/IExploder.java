@@ -8,5 +8,8 @@ public interface IExploder {
 
     public void setExplosionPower(Integer explosionPower);
 
+    /**
+     * make an explosion
+     */
     public void makeExplosion();
 }

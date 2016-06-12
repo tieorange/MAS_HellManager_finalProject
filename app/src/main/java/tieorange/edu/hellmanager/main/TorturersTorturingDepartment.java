@@ -35,6 +35,10 @@ public class TorturersTorturingDepartment {
         return torturersMap;
     }
 
+    /**
+     * adds torturer to collection
+     * @param torturer
+     */
     public void addTorturer(Torturer torturer) {
         if (torturer == null) {
             throw new IllegalArgumentException("torturer is NULL");

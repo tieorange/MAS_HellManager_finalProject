@@ -29,12 +29,17 @@ public class SufferingProcess {
         }
     }
 
+    /**
+     * return true if end date - start date is bigger than 1000 years
+     * @return
+     */
     private boolean ifBurnedLongEnough() {
         int diffYears = MyTools.getDiffYears(getStartDate(), getFinishDate());
         return diffYears >= MINIMAL_PROCESS_DURATION;
     }
 
 
+    //region Getters and Setters
     public Date getStartDate() {
         return startDate;
     }
@@ -84,6 +89,7 @@ public class SufferingProcess {
             this.sinner.addSufferingProcess(this);
         }
     }
+    //endregion
 
 
 }

@@ -41,6 +41,11 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         setName(name);
     }
 
+    /**
+     * returns torturer with a given id
+     * @param id
+     * @return
+     */
     public Torturer getTorturerById(String id) {
         if (id != null) {
             return torturersMap.get(id);
@@ -49,6 +54,10 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         }
     }
 
+    /**
+     * adds torturer to the collection
+     * @param newTorturer torturer
+     */
     public void addTorturer(Torturer newTorturer) {
         if (newTorturer.getTorturersTorturingDepartment() != null) {
             throw new IllegalArgumentException("torturer is already added to TorturersTorturingDepartment");
@@ -66,6 +75,10 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         }
     }
 
+    /**
+     * removes torturer with a given id
+     * @param id
+     */
     public void removeTorturerById(String id) {
         if (id == null) {
             throw new IllegalArgumentException("id is NULL");
@@ -78,6 +91,10 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         return sufferingProcesses;
     }
 
+    /**
+     * adds suffering process to the collection
+     * @param sufferingProcess
+     */
     public void addSufferingProcess(SufferingProcess sufferingProcess) {
         if (sufferingProcess.getTortureDepartment() != this) {
             throw new IllegalArgumentException("main.SufferingProcess torture department is different");
@@ -115,6 +132,10 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         return new ArrayList<>(punishmentTools);
     }
 
+    /**
+     * adds punishment tool to the collection
+     * @param punishmentTool
+     */
     public void addPunishmentTool(PunishmentTool punishmentTool) {
         if (punishmentTool != null) {
             if (!punishmentTools.contains(punishmentTool)) {
@@ -130,6 +151,10 @@ public class TortureDepartment extends ObjectPlus4 implements Serializable {
         }
     }
 
+    /**
+     * removes punishment tool from the collection
+     * @param punishmentTool
+     */
     public void removePunishmentTool(PunishmentTool punishmentTool) {
         if (punishmentTools.contains(punishmentTool)) {
             punishmentTools.remove(punishmentTool);

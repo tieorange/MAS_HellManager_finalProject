@@ -16,6 +16,7 @@ public class HellPet implements IFlying, IJumping {
     private Integer flyingSpeed;
     private Integer jumpingSpeed;
 
+    //region Constructor
     public HellPet(String name, HellPetColor color, Torturer torturer, HellPetType type, Integer jumpingSpeed, Integer flyingSpeed) {
         if (type != null) {
             setName(name);
@@ -43,16 +44,28 @@ public class HellPet implements IFlying, IJumping {
             }
         }
     }
+    //endregion
 
+    //region Methods
+
+    /**
+     * make a pet being flying type
+     * @param flyingSpeed flying speed
+     */
     public void becomeFlying(Integer flyingSpeed) {
         setHellPetType(HellPetType.FLYING);
         setFlyingSpeed(flyingSpeed);
     }
 
+    /**
+     * make a pet being jumping type
+     * @param jumpingSpeed jumping speed
+     */
     public void becomeJumping(Integer jumpingSpeed) {
         setHellPetType(HellPetType.JUMPING);
         setJumpingSpeed(jumpingSpeed);
     }
+    //endregion
 
     //region Getters and Setters
     public String getName() {

@@ -22,6 +22,7 @@ import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
 import tieorange.edu.hellmanager.HellManagerApplication;
 import tieorange.edu.hellmanager.R;
+import tieorange.edu.hellmanager.main.MyUtils.MyTools;
 
 public class AddSinnerActivity extends AppCompatActivity {
 
@@ -66,6 +67,15 @@ public class AddSinnerActivity extends AppCompatActivity {
 
         initSwitches();
 
+        initDatePickers();
+    }
+
+    private void initDatePickers() {
+        final Date startDateExample = MyTools.getStartDateExample();
+        final Date endDateExample = MyTools.getEndDateExample();
+        
+        mUiStartDate.updateDate(startDateExample.getYear(), startDateExample.getMonth(), startDateExample.getDay());
+        mUiFinishDate.updateDate(endDateExample.getYear(), endDateExample.getMonth(), endDateExample.getDay());
     }
 
     private void getExtras() {

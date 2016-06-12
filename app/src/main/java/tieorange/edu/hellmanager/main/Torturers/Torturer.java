@@ -26,6 +26,7 @@ public abstract class Torturer extends ObjectPlus4 {
     private String name;
     private HellPet hellPet;
 
+    //region Constructors
     public Torturer(String name, TortureDepartment tortureDepartment) {
         this(name);
         setTortureDepartment(tortureDepartment);
@@ -51,7 +52,13 @@ public abstract class Torturer extends ObjectPlus4 {
             Torturer.extent.add(this);
         }
     }
+    //endregion
 
+    //region Methods
+
+    /**
+     * saves extent to the internal memory
+     */
     public static void saveExtent() {
         try {
             FileOutputStream fileOut =
@@ -66,6 +73,9 @@ public abstract class Torturer extends ObjectPlus4 {
         }
     }
 
+    /**
+     * loads extent from the internal memory
+     */
     public static void loadExtent() {
         try {
             FileInputStream fileIn = new FileInputStream(EXTENT_FILE_PATH);
@@ -82,6 +92,7 @@ public abstract class Torturer extends ObjectPlus4 {
             return;
         }
     }
+    //endregion
 
     //region Getters and Setters
     public TortureDepartment getTortureDepartment() {
@@ -158,11 +169,20 @@ public abstract class Torturer extends ObjectPlus4 {
         }
     }
 
+    /**
+     * get all torturers from extent
+     * @return
+     */
     public static List<Torturer> getTorturers() {
         List<Torturer> tmp = new ArrayList<>(extent);
         return tmp;
     }
 
+    /**
+     * get torturer by id from extent
+     * @param id Torturer's id
+     * @return
+     */
     public static Torturer getTorturerById(String id) {
         List<Torturer> tmp = new ArrayList<>(extent);
         Torturer foundTorturer = null;
@@ -173,6 +193,11 @@ public abstract class Torturer extends ObjectPlus4 {
         return foundTorturer;
     }
 
+    /**
+     * returns true if a Torturer with such id already exist in extent
+     * @param torturer
+     * @return
+     */
     public boolean isIdAlreadyExist(Torturer torturer) {
         boolean isExist = false;
         for (Torturer torturer1 : extent) {
@@ -183,5 +208,8 @@ public abstract class Torturer extends ObjectPlus4 {
     }
     //endregion
 
+    /**
+     * punish
+     */
     public abstract void punish();
 }

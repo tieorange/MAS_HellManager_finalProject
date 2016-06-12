@@ -26,6 +26,7 @@ public abstract class PunishmentTool{
     private Ice elementalPowerIce;
     private Flame elementalPowerFlame;
 
+    //region Constructors
     public PunishmentTool(String name, int damage, TortureDepartment tortureDepartment, Integer minTemperature) {
         setName(name);
         setDamage(damage);
@@ -39,7 +40,9 @@ public abstract class PunishmentTool{
         setTortureDepartment(tortureDepartment);
         setElementalPowerFlame(maxTemperature);
     }
+    //endregion
 
+    //region Getters and Setters
     public String getName() {
         return name;
     }
@@ -78,6 +81,10 @@ public abstract class PunishmentTool{
         return elementalPowerIce;
     }
 
+    /**
+     * set's the Ice elemental power
+     * @param minTemperature minimal temperature
+     */
     public void setElementalPowerIce(Integer minTemperature) {
         if (minTemperature != null) {
             this.elementalPowerIce = new Ice(minTemperature);
@@ -89,11 +96,16 @@ public abstract class PunishmentTool{
         return elementalPowerFlame;
     }
 
+    /**
+     * set's the Flame elemental power
+     * @param maxTemperature maximal temperature
+     */
     public void setElementalPowerFlame(Double maxTemperature) {
         if (maxTemperature != null) {
             this.elementalPowerFlame = new Flame(maxTemperature);
         } else throw new IllegalArgumentException("maxTemperature is NULL");
     }
+    //endregion
 
     private abstract class ElementalPower {
 

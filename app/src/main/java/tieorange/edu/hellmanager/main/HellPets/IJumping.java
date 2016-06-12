@@ -8,5 +8,8 @@ public interface IJumping {
 
     public Integer getJumpingSpeed();
 
+    /**
+     * jump
+     */
     public void jump();
 }

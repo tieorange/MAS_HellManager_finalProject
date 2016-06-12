@@ -60,6 +60,11 @@ public class Sinner implements ILiar, IMurderer {
 
 
     //region methods
+
+    /**
+     * add new Sin
+     * @param name name of the Sin
+     */
     public void addSin(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name should not be null");
@@ -71,6 +76,11 @@ public class Sinner implements ILiar, IMurderer {
 
     }
 
+    /**
+     * check if Sinner already has this Sin
+     * @param name name of the Sin
+     * @return
+     */
     public boolean isSinAlreadyExist(String name) {
         boolean isAlreadyExist = false;
         for (Sin sin : sinsSet) {
@@ -80,6 +90,10 @@ public class Sinner implements ILiar, IMurderer {
         return isAlreadyExist;
     }
 
+    /**
+     * remove Sin
+     * @param name sin name
+     */
     public void removeSin(String name) {
         if (name != null) {
             for (Sin sin : sinsSet) {
@@ -90,6 +104,35 @@ public class Sinner implements ILiar, IMurderer {
             throw new IllegalArgumentException("Name should not be null");
         }
 //        for(Iterator<Sin> sin = sinsSet.iterator() : sin. ){
+    }
+
+    /**
+     * add new suffering process
+     * @param process
+     */
+    public void addSufferingProcess(SufferingProcess process) {
+        if (process == null) {
+            throw new IllegalArgumentException("process is NULL");
+        }
+        if (!process.getSinner().equals(this)) {
+            throw new IllegalArgumentException("process belongs to another sinner");
+        }
+        sufferingProcessList.add(process);
+
+    }
+
+    /**
+     * remove suffering process
+     * @param process
+     */
+    public void removeSufferingProcess(SufferingProcess process) {
+        if (process == null) {
+            throw new IllegalArgumentException("process is NULL");
+        }
+        if (!process.getSinner().equals(process)) {
+            throw new IllegalArgumentException("process belongs to another sinner");
+        }
+        sufferingProcessList.remove(process);
     }
     //endregion
 
@@ -103,48 +146,10 @@ public class Sinner implements ILiar, IMurderer {
         return sinsNames;
     }
 
-    public void addSufferingProcess(SufferingProcess process) {
-        if (process == null) {
-            throw new IllegalArgumentException("process is NULL");
-        }
-        if (!process.getSinner().equals(this)) {
-            throw new IllegalArgumentException("process belongs to another sinner");
-        }
-        sufferingProcessList.add(process);
-
-    }
-
-    public void removeSufferingProcess(SufferingProcess process) {
-        if (process == null) {
-            throw new IllegalArgumentException("process is NULL");
-        }
-        if (!process.getSinner().equals(process)) {
-            throw new IllegalArgumentException("process belongs to another sinner");
-        }
-        sufferingProcessList.remove(process);
-    }
-
     public List<SufferingProcess> getSufferingProcesses() {
         return this.sufferingProcessList;
     }
 
-
-    /*public SufferingProcess getSufferingProcessList() {
-        return sufferingProcessList;
-    }
-
-    public void setSufferingProcessList(SufferingProcess sufferingProcessList) {
-        if (sufferingProcessList == null) {
-            throw new IllegalArgumentException("main.SufferingProcess is NULL");
-        }
-        if (sufferingProcessList.getSinner() != this) {
-            throw new IllegalArgumentException("main.SufferingProcess sinner is different");
-        } else {
-            this.sufferingProcessList = sufferingProcessList;
-            if (sufferingProcessList.getSinner() != this)
-                sufferingProcessList.setSinner(this);
-        }
-    }*/
 
     public String getFirstName() {
         return firstName;

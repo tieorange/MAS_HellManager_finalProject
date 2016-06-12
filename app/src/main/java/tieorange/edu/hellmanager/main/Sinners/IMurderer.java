@@ -8,5 +8,8 @@ public interface IMurderer {
 
     public int getAmountOfVictims();
 
+    /**
+     * Murderer tries to kill
+     */
     public void Kill();
 }

@@ -8,6 +8,9 @@ public interface IFlying {
 
     public Integer getFlyingSpeed();
 
+    /**
+     * fly
+     */
     public void fly();
 
 }

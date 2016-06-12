@@ -8,5 +8,8 @@ public interface ILiar {
 
     public int getAmountOfLies();
 
+    /**
+     * Liar tries to lie
+     */
     public void tryToLie();
 }
