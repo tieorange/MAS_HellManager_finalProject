@@ -38,6 +38,10 @@ public class TortureDepartmentEntity extends RealmObject {
         id = UUID.randomUUID().toString();
     }
 
+    public TortureDepartmentEntity(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return name;

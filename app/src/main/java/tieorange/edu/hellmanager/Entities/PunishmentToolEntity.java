@@ -19,12 +19,26 @@ public class PunishmentToolEntity extends RealmObject {
     public Integer damage;
 
     public Integer minTemperature;
-    public Integer maxTemperature;
+    public Double maxTemperature;
 
     public TortureDepartmentEntity tortureDepartment;
 
     public PunishmentToolEntity() {
         id = UUID.randomUUID().toString();
+    }
+
+    public PunishmentToolEntity(String name, Integer damage, Integer minTemperature, TortureDepartmentEntity tortureDepartment) {
+        this.name = name;
+        this.damage = damage;
+        this.minTemperature = minTemperature;
+        this.tortureDepartment = tortureDepartment;
+    }
+
+    public PunishmentToolEntity(String name, Integer damage, Double maxTemperature, TortureDepartmentEntity tortureDepartment) {
+        this.name = name;
+        this.damage = damage;
+        this.maxTemperature = maxTemperature;
+        this.tortureDepartment = tortureDepartment;
     }
 
     @Override
