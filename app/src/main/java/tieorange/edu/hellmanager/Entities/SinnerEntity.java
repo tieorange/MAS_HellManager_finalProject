@@ -36,6 +36,7 @@ public class SinnerEntity extends RealmObject {
     }
 
     public SinnerEntity(boolean isLiar, boolean isMurderer, RealmList<SufferingProcessEntity> sufferingProcessList, String firstName, String lastName, Date birthDate, Integer amountOfLies, Integer amountOfVictims) {
+        this();
         this.id = UUID.randomUUID().toString();
         this.isLiar = isLiar;
         this.isMurderer = isMurderer;

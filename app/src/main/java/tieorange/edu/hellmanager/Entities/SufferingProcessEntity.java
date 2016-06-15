@@ -25,7 +25,7 @@ public class SufferingProcessEntity extends RealmObject {
     }
 
     public SufferingProcessEntity(Date startDate, Date finishDate, TortureDepartmentEntity tortureDepartment, SinnerEntity sinner) {
-        this.id = UUID.randomUUID().toString();
+        this();
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.tortureDepartment = tortureDepartment;

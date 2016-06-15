@@ -16,6 +16,7 @@ import io.realm.annotations.Required;
 import tieorange.edu.hellmanager.main.PunishmentTools.PunishmentTool;
 import tieorange.edu.hellmanager.main.PunishmentTools.PunishmentToolComparator;
 import tieorange.edu.hellmanager.main.SufferingProcess;
+import tieorange.edu.hellmanager.main.TortureDepartment;
 import tieorange.edu.hellmanager.main.Torturers.Torturer;
 
 /**
@@ -39,6 +40,7 @@ public class TortureDepartmentEntity extends RealmObject {
     }
 
     public TortureDepartmentEntity(String name) {
+        this();
         this.name = name;
     }
 

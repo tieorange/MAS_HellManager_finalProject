@@ -28,6 +28,7 @@ public class PunishmentToolEntity extends RealmObject {
     }
 
     public PunishmentToolEntity(String name, Integer damage, Integer minTemperature, TortureDepartmentEntity tortureDepartment) {
+        this();
         this.name = name;
         this.damage = damage;
         this.minTemperature = minTemperature;
@@ -35,6 +36,7 @@ public class PunishmentToolEntity extends RealmObject {
     }
 
     public PunishmentToolEntity(String name, Integer damage, Double maxTemperature, TortureDepartmentEntity tortureDepartment) {
+        this();
         this.name = name;
         this.damage = damage;
         this.maxTemperature = maxTemperature;

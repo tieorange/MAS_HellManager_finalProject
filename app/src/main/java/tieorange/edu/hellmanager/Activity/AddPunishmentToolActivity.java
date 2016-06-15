@@ -71,15 +71,17 @@ public class AddPunishmentToolActivity extends AppCompatActivity {
     public void onClickAdd() {
         final String name = mUiNameEditText.getText().toString();
         final int damage = Integer.parseInt(mUiDamage.getText().toString());
-        int temperature = Integer.parseInt(mUiTemperature.getText().toString());
 
         PunishmentToolEntity punishmentToolEntity = new PunishmentToolEntity();
         punishmentToolEntity.tortureDepartment = mDepartment;
         punishmentToolEntity.name = name;
-        if (mIsFlame)
-            punishmentToolEntity.maxTemperature = temperature;
-        else
-            punishmentToolEntity.minTemperature = temperature;
+        if (mIsFlame) {
+            double maxTemperature = Double.parseDouble(mUiTemperature.getText().toString());
+            punishmentToolEntity.maxTemperature = maxTemperature;
+        } else {
+            int minTemperature = Integer.parseInt(mUiTemperature.getText().toString());
+            punishmentToolEntity.minTemperature = minTemperature;
+        }
 
         punishmentToolEntity.damage = damage;
 

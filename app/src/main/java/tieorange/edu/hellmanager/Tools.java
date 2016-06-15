@@ -1,7 +1,7 @@
 package tieorange.edu.hellmanager;
 
 import android.app.Activity;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -10,18 +10,18 @@ import com.kennyc.bottomsheet.BottomSheetListener;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
-import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
+import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
-import tieorange.edu.hellmanager.Fragments.PunishmentToolsFragment;
-import tieorange.edu.hellmanager.R;
-import tieorange.edu.hellmanager.main.Sinners.Sinner;
 
 /**
  * Created by tieorange on 06/06/16.
@@ -72,28 +72,90 @@ public class Tools {
     public static void populateDummyData(Realm mRealm) {
         // Deps:
         TortureDepartmentEntity tortureDepartmentEntity = new TortureDepartmentEntity("Boiling room");
+        List<PunishmentToolEntity> punishmentToolEntities = getDummyPunishmentToolEntityList(tortureDepartmentEntity);
 
-        //region Punishment Tools:
-        PunishmentToolEntity punishmentToolEntityHummer = new PunishmentToolEntity("Hummer", getRandomInt(), getRandomInt(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityFork = new PunishmentToolEntity("Heretics Fork", getRandomInt(), getRandomDouble(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityImpalement = new PunishmentToolEntity("Impalement", getRandomInt(), getRandomDouble(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityNeckTorture = new PunishmentToolEntity("Neck Torture", getRandomInt(), getRandomInt(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntitySawTorture = new PunishmentToolEntity("Saw Torture", getRandomInt(), getRandomInt(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityChair = new PunishmentToolEntity("Chair of torture", getRandomInt(), getRandomDouble(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityRack = new PunishmentToolEntity("Rack", getRandomInt(), getRandomInt(), tortureDepartmentEntity);
-        PunishmentToolEntity punishmentToolEntityRackBreast = new PunishmentToolEntity("Breast Ripper", getRandomInt(), getRandomInt(), tortureDepartmentEntity);
-        //endregion
 
         // TODO: 12/06/16  
-//        SinnerEntity sinnerEntity1 = new SinnerEntity()
+        final List<SinnerEntity> dummySinnerEntityList = getDummySinnerEntityList(tortureDepartmentEntity, 10);
+
 
 //        tortureDepartmentEntity.id = UUID.randomUUID().toString();
 
         mRealm.beginTransaction();
         mRealm.copyToRealmOrUpdate(tortureDepartmentEntity);
-        mRealm.copyToRealmOrUpdate(punishmentToolEntityHummer);
+        for (PunishmentToolEntity punishmentToolEntity : punishmentToolEntities) {
+            mRealm.copyToRealmOrUpdate(punishmentToolEntity);
+        }
+
+        for (SinnerEntity sinnerEntity : dummySinnerEntityList) {
+            mRealm.copyToRealmOrUpdate(sinnerEntity);
+        }
         mRealm.commitTransaction();
     }
+
+    @NonNull
+    private static List<PunishmentToolEntity> getDummyPunishmentToolEntityList(TortureDepartmentEntity tortureDepartmentEntity) {
+        List<PunishmentToolEntity> list = new ArrayList<>();
+
+        list.add(new PunishmentToolEntity("Hummer", getRandomInt(), getRandomInt(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Heretics Fork", getRandomInt(), getRandomDouble(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Impalement", getRandomInt(), getRandomDouble(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Neck Torture", getRandomInt(), getRandomInt(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Saw Torture", getRandomInt(), getRandomInt(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Chair of torture", getRandomInt(), getRandomDouble(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Rack", getRandomInt(), getRandomInt(), tortureDepartmentEntity));
+        list.add(new PunishmentToolEntity("Breast Ripper", getRandomInt(), getRandomInt(), tortureDepartmentEntity));
+
+        return list;
+    }
+
+    @NonNull
+    private static List<SinnerEntity> getDummySinnerEntityList(TortureDepartmentEntity tortureDepartmentEntity, int size) {
+        List<SinnerEntity> list = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            boolean isMurderer = Math.random() < 0.5;
+            if (isMurderer) {
+                final SinnerEntity sinner = new SinnerEntity();
+                RealmList<SufferingProcessEntity> sufferingProcessEntities = getDummySufferingProcesses(tortureDepartmentEntity, sinner);
+                sinner.setLiar(false);
+                sinner.setMurderer(true);
+                sinner.setAmountOfVictims(getRandomInt());
+                sinner.setBirthDate(dataFactory.getBirthDate());
+                sinner.setSufferingProcessList(sufferingProcessEntities);
+                sinner.setFirstName(dataFactory.getFirstName());
+                sinner.setLastName(dataFactory.getLastName());
+                list.add(sinner);
+
+            } else {
+                final SinnerEntity sinner = new SinnerEntity();
+                RealmList<SufferingProcessEntity> sufferingProcessEntities = getDummySufferingProcesses(tortureDepartmentEntity, sinner);
+                sinner.setLiar(true);
+                sinner.setMurderer(false);
+                sinner.setAmountOfLies(getRandomInt());
+                sinner.setBirthDate(dataFactory.getBirthDate());
+                sinner.setSufferingProcessList(sufferingProcessEntities);
+                sinner.setFirstName(dataFactory.getFirstName());
+                sinner.setLastName(dataFactory.getLastName());
+                list.add(sinner);
+            }
+        }
+
+        return list;
+    }
+
+    private static RealmList<SufferingProcessEntity> getDummySufferingProcesses(TortureDepartmentEntity departmentEntity, SinnerEntity sinner) {
+        RealmList<SufferingProcessEntity> sufferingProcessEntities = new RealmList<>();
+
+        // TODO: 15/06/16 make RANDOM (1-3)
+        final int size = 1;
+        for (int i = 0; i < size; i++) {
+            sufferingProcessEntities.add(new SufferingProcessEntity(getStartDateExample(), getEndDateExample(), departmentEntity, sinner));
+        }
+
+        return sufferingProcessEntities;
+    }
+
 
     private static int getRandomInt() {
         int min = 0, max = 100;
@@ -107,6 +169,19 @@ public class Tools {
         Random random = new Random();
         double randomNum = min + (max - min) * random.nextDouble();
         return randomNum;
+    }
+
+    public static Date getStartDateExample() {
+        return new Date(700, 1, 1);
+    }
+
+    /**
+     * return the example of end date of suffering process (to have more than 1000 years in result)
+     *
+     * @return
+     */
+    public static Date getEndDateExample() {
+        return new Date(2900, 1, 1);
     }
 
 }

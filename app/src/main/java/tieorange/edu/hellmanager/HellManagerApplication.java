@@ -19,7 +19,11 @@ public class HellManagerApplication extends Application {
     }
 
     private void initRealm() {
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        final int schemaVersion = 3;
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
+                .schemaVersion(schemaVersion)
+                .deleteRealmIfMigrationNeeded()
+                .build();
         Realm.setDefaultConfiguration(realmConfig);
 
         // Get a Realm instance for this thread
