@@ -35,6 +35,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.github.Kennyc1012:BottomSheet:2.1.2'
     compile 'org.fluttercode.datafactory:datafactory:0.8'
-
+    compile 'com.github.greenfrvr:hashtag-view:1.2.1'
 
 }

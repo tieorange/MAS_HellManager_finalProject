@@ -3,6 +3,7 @@ package tieorange.edu.hellmanager.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -10,8 +11,12 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.greenfrvr.hashtagview.HashtagView;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +32,7 @@ import tieorange.edu.hellmanager.main.MyUtils.MyTools;
 public class AddSinnerActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "ID";
+    private static final String TAG = AddSinnerActivity.class.getCanonicalName();
 
     @Bind(R.id.first_name)
     public EditText mUiFirstName;
@@ -52,6 +58,9 @@ public class AddSinnerActivity extends AppCompatActivity {
     @Bind(R.id.start_date)
     public DatePicker mUiStartDate;
 
+    @Bind(R.id.sinsHashtags)
+    public HashtagView mUiSinsHashtags;
+
     @Bind(R.id.finish_date)
     public DatePicker mUiFinishDate;
     private TortureDepartmentEntity mDepartment;
@@ -66,14 +75,34 @@ public class AddSinnerActivity extends AppCompatActivity {
         getExtras();
 
         initSwitches();
-
         initDatePickers();
+
+        initHashtags();
+    }
+
+    private void initHashtags() {
+        List<String> sinsList = new ArrayList<>();
+        sinsList.add("killing");
+        sinsList.add("lying");
+        sinsList.add("killing");
+        sinsList.add("lying");
+        sinsList.add("killing");
+        sinsList.add("lying");
+        mUiSinsHashtags.setData(sinsList);
+        mUiSinsHashtags.addOnTagSelectListener(new HashtagView.TagsSelectListener() {
+            @Override
+            public void onItemSelected(Object item, boolean selected) {
+                Log.d(TAG, "onItemSelected:");
+            }
+        });
+
+//        mUiSinsHashtags.setInSelectMode(true);
     }
 
     private void initDatePickers() {
         final Date startDateExample = MyTools.getStartDateExample();
         final Date endDateExample = MyTools.getEndDateExample();
-        
+
         mUiStartDate.updateDate(startDateExample.getYear(), startDateExample.getMonth(), startDateExample.getDay());
         mUiFinishDate.updateDate(endDateExample.getYear(), endDateExample.getMonth(), endDateExample.getDay());
     }
