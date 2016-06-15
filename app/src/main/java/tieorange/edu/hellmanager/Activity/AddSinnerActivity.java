@@ -73,8 +73,6 @@ public class AddSinnerActivity extends AppCompatActivity {
     public DatePicker mUiFinishDate;
     private TortureDepartmentEntity mDepartment;
     private Realm mRealm;
-    private int color1 = R.color.colorAccent;
-    private int color2 = android.R.color.white;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +90,13 @@ public class AddSinnerActivity extends AppCompatActivity {
 
     private void initHashtags() {
         List<String> sinsList = new ArrayList<>();
-        sinsList.add("killing");
-        sinsList.add("lying");
-        sinsList.add("killing");
-        sinsList.add("lying");
-        sinsList.add("killing");
-        sinsList.add("lying");
-
+        sinsList.add("Pride");
+        sinsList.add("Envy");
+        sinsList.add("Gluttony");
+        sinsList.add("Anger");
+        sinsList.add("Greed");
+        sinsList.add("Sloth");
+/*
         HashtagView.DataTransform<String> stateTransform = new HashtagView.DataStateTransform<String>() {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
@@ -122,9 +120,9 @@ public class AddSinnerActivity extends AppCompatActivity {
 //                spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 return spannableString;
             }
-        };
+        };*/
 
-        mUiSinsHashtags.setData(sinsList, stateTransform);
+        mUiSinsHashtags.setData(sinsList);
 
 
         mUiSinsHashtags.addOnTagSelectListener(new HashtagView.TagsSelectListener() {

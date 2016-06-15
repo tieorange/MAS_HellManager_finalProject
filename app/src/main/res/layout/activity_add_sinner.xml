@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
         <EditText
             android:id="@+id/last_name"
@@ -45,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Amount of lies"
-            android:inputType="number" />
+            android:inputType="number"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
         <Switch
             android:id="@+id/is_murderer"
@@ -59,7 +61,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Amount of victims"
-            android:inputType="number" />
+            android:inputType="number"
+            android:layout_marginBottom="@dimen/vertical_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Sins by tapping:" />
 
         <com.greenfrvr.hashtagview.HashtagView
             android:id="@+id/sinsHashtags"
@@ -68,13 +76,14 @@
             app:rowMode="wrap"
             app:selectionMode="true"
             app:tagBackground="@drawable/tag_bg1"
-            app:tagDrawableRight="@android:drawable/ic_delete"
+            app:tagDrawableRight="@drawable/ic_clear"
             app:tagEllipsize="start"
             app:tagMargin="6dp"
             app:tagPaddingLeft="8dp"
             app:tagPaddingRight="8dp"
-            app:tagSelectedDrawableRight="@android:drawable/ic_input_add"
-            app:tagTextColor="@android:color/white" />
+            app:tagSelectedDrawableRight="@drawable/ic_add"
+            app:tagTextColor="@android:color/white"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,7 +93,8 @@
         <DatePicker
             android:id="@+id/birth_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
 
         <TextView
@@ -95,7 +105,8 @@
         <DatePicker
             android:id="@+id/start_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -105,7 +116,8 @@
         <DatePicker
             android:id="@+id/finish_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_normal" />
 
         <Button
             android:id="@+id/add"
