@@ -1,8 +1,16 @@
 package tieorange.edu.hellmanager.Activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -65,6 +73,8 @@ public class AddSinnerActivity extends AppCompatActivity {
     public DatePicker mUiFinishDate;
     private TortureDepartmentEntity mDepartment;
     private Realm mRealm;
+    private int color1 = R.color.colorAccent;
+    private int color2 = android.R.color.white;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +98,35 @@ public class AddSinnerActivity extends AppCompatActivity {
         sinsList.add("lying");
         sinsList.add("killing");
         sinsList.add("lying");
-        mUiSinsHashtags.setData(sinsList);
+
+        HashtagView.DataTransform<String> stateTransform = new HashtagView.DataStateTransform<String>() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @Override
+            public CharSequence prepare(String item) {
+                String label = item;
+                SpannableString spannableString = new SpannableString(label);
+//                spannableString.setSpan(new SuperscriptSpan(), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                spannableString.setSpan(new ForegroundColorSpan(getColor(color1)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                spannableString.setSpan(new BackgroundColorSpan(getColor(color1)), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                return spannableString;
+            }
+
+            @TargetApi(Build.VERSION_CODES.M)
+            @Override
+            public CharSequence prepareSelected(String item) {
+                String label = item;
+                SpannableString spannableString = new SpannableString(label);
+//                spannableString.setSpan(new SuperscriptSpan(), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                spannableString.setSpan(new ForegroundColorSpan(getColor(color1)), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+//                spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                return spannableString;
+            }
+        };
+
+        mUiSinsHashtags.setData(sinsList, stateTransform);
+
+
         mUiSinsHashtags.addOnTagSelectListener(new HashtagView.TagsSelectListener() {
             @Override
             public void onItemSelected(Object item, boolean selected) {

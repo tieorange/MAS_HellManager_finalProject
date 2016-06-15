@@ -61,19 +61,25 @@
             android:hint="Amount of victims"
             android:inputType="number" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Birth date:" />
-
         <com.greenfrvr.hashtagview.HashtagView
             android:id="@+id/sinsHashtags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:rowMode="wrap"
             app:selectionMode="true"
-            app:tagBackground="@android:color/darker_gray"
+            app:tagBackground="@drawable/tag_bg1"
+            app:tagDrawableRight="@android:drawable/ic_delete"
+            app:tagEllipsize="start"
+            app:tagMargin="6dp"
+            app:tagPaddingLeft="8dp"
+            app:tagPaddingRight="8dp"
             app:tagSelectedDrawableRight="@android:drawable/ic_input_add"
-            app:tagTextColor="#FF0000" />
+            app:tagTextColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birth date:" />
 
         <DatePicker
             android:id="@+id/birth_date"
