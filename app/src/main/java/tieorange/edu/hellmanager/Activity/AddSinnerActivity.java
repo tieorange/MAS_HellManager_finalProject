@@ -1,16 +1,9 @@
 package tieorange.edu.hellmanager.Activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StrikethroughSpan;
-import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -30,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import tieorange.edu.hellmanager.Entities.DeadlySin;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
@@ -73,6 +67,7 @@ public class AddSinnerActivity extends AppCompatActivity {
     public DatePicker mUiFinishDate;
     private TortureDepartmentEntity mDepartment;
     private Realm mRealm;
+    private List<DeadlySin> mSinsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +84,7 @@ public class AddSinnerActivity extends AppCompatActivity {
     }
 
     private void initHashtags() {
-        List<String> sinsList = new ArrayList<>();
-        sinsList.add("Pride");
-        sinsList.add("Envy");
-        sinsList.add("Gluttony");
-        sinsList.add("Anger");
-        sinsList.add("Greed");
-        sinsList.add("Sloth");
+        List<DeadlySin> sinsList = DeadlySin.getSevenDeadlySins();
 /*
         HashtagView.DataTransform<String> stateTransform = new HashtagView.DataStateTransform<String>() {
             @TargetApi(Build.VERSION_CODES.M)
@@ -122,13 +111,25 @@ public class AddSinnerActivity extends AppCompatActivity {
             }
         };*/
 
-        mUiSinsHashtags.setData(sinsList);
+        mUiSinsHashtags.setData(sinsList, new HashtagView.DataTransform<DeadlySin>() {
+            @Override
+            public CharSequence prepare(DeadlySin item) {
+                return item.getName();
+            }
+        });
 
 
         mUiSinsHashtags.addOnTagSelectListener(new HashtagView.TagsSelectListener() {
             @Override
             public void onItemSelected(Object item, boolean selected) {
-                Log.d(TAG, "onItemSelected:");
+                Log.d(TAG, "onItemSelected() called with: " + "item = [" + item + "], selected = [" + selected + "]");
+                DeadlySin sin = (DeadlySin) item;
+                if (selected) {
+                    mSinsList.add(sin);
+                } else {
+                    if (mSinsList.contains(sin))
+                        mSinsList.remove(sin);
+                }
             }
         });
 
@@ -171,7 +172,41 @@ public class AddSinnerActivity extends AppCompatActivity {
         Date birthDate = getDateFromDatePicket(mUiBirthDate);
         Date startDate = getDateFromDatePicket(mUiStartDate);
         Date finishDate = getDateFromDatePicket(mUiFinishDate);
+        SinnerEntity sinnerEntity = buildSinnerEntity(firstName, lastName, amountOfLies, amountOfVictims, birthDate);
+        SufferingProcessEntity sufferingProcessEntity = buildSufferingProcessEntity(startDate, finishDate, sinnerEntity);
 
+        // Dep
+        mRealm.beginTransaction();
+        sinnerEntity.getSufferingProcessList().add(sufferingProcessEntity);
+        sinnerEntity.getSinsList().addAll(mSinsList);
+
+        sufferingProcessEntity.setTortureDepartment(mDepartment);
+        sufferingProcessEntity.setSinner(sinnerEntity);
+
+        mDepartment.sufferingProcessesList.add(sufferingProcessEntity);
+
+        mRealm.copyToRealmOrUpdate(sinnerEntity);
+        mRealm.copyToRealmOrUpdate(sufferingProcessEntity);
+        mRealm.copyToRealmOrUpdate(mDepartment);
+        mRealm.commitTransaction();
+
+        Toast.makeText(AddSinnerActivity.this, firstName + " is burning very well \uD83D\uDE08", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @NonNull
+    private SufferingProcessEntity buildSufferingProcessEntity(Date startDate, Date finishDate, SinnerEntity sinnerEntity) {
+        // SufferingProcess
+        SufferingProcessEntity sufferingProcessEntity = new SufferingProcessEntity();
+        sufferingProcessEntity.setStartDate(startDate);
+        sufferingProcessEntity.setFinishDate(finishDate);
+        sufferingProcessEntity.setSinner(sinnerEntity);
+        sufferingProcessEntity.setTortureDepartment(mDepartment);
+        return sufferingProcessEntity;
+    }
+
+    @NonNull
+    private SinnerEntity buildSinnerEntity(String firstName, String lastName, int amountOfLies, int amountOfVictims, Date birthDate) {
         // sinnerEntity
         SinnerEntity sinnerEntity = new SinnerEntity();
         sinnerEntity.setFirstName(firstName);
@@ -185,30 +220,7 @@ public class AddSinnerActivity extends AppCompatActivity {
             sinnerEntity.setMurderer(true);
             sinnerEntity.setAmountOfVictims(amountOfVictims);
         }
-
-        // SufferingProcess
-        SufferingProcessEntity sufferingProcessEntity = new SufferingProcessEntity();
-        sufferingProcessEntity.setStartDate(startDate);
-        sufferingProcessEntity.setFinishDate(finishDate);
-        sufferingProcessEntity.setSinner(sinnerEntity);
-        sufferingProcessEntity.setTortureDepartment(mDepartment);
-
-        // Dep
-        mRealm.beginTransaction();
-        sinnerEntity.getSufferingProcessList().add(sufferingProcessEntity);
-
-        sufferingProcessEntity.setTortureDepartment(mDepartment);
-        sufferingProcessEntity.setSinner(sinnerEntity);
-
-        mDepartment.sufferingProcessesList.add(sufferingProcessEntity);
-
-        mRealm.copyToRealmOrUpdate(sinnerEntity);
-        mRealm.copyToRealmOrUpdate(sufferingProcessEntity);
-        mRealm.copyToRealmOrUpdate(mDepartment);
-        mRealm.commitTransaction();
-
-        Toast.makeText(AddSinnerActivity.this, firstName + " added", Toast.LENGTH_SHORT).show();
-        finish();
+        return sinnerEntity;
     }
 
 

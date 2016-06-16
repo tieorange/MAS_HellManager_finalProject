@@ -19,7 +19,7 @@ public class HellManagerApplication extends Application {
     }
 
     private void initRealm() {
-        final int schemaVersion = 3;
+        final int schemaVersion = 4;
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
                 .schemaVersion(schemaVersion)
                 .deleteRealmIfMigrationNeeded()

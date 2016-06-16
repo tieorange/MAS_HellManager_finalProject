@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 import butterknife.OnItemLongClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import tieorange.edu.hellmanager.Activity.ui.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.Entities.TortureDepartmentEntity;
 import tieorange.edu.hellmanager.HellManagerApplication;
-import tieorange.edu.hellmanager.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.R;
 import tieorange.edu.hellmanager.Tools;
 

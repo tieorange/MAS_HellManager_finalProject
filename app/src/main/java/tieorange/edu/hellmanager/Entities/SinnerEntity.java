@@ -24,6 +24,7 @@ public class SinnerEntity extends RealmObject {
     private boolean isMurderer = false;
 
     private RealmList<SufferingProcessEntity> sufferingProcessList = new RealmList<>();
+    private RealmList<DeadlySin> sinsList = new RealmList<>();
     private String firstName;
     private String lastName;
     private Date birthDate;
@@ -120,18 +121,28 @@ public class SinnerEntity extends RealmObject {
         this.amountOfVictims = amountOfVictims;
     }
 
+    public RealmList<DeadlySin> getSinsList() {
+        return sinsList;
+    }
+
+    public void setSinsList(RealmList<DeadlySin> sinsList) {
+        this.sinsList = sinsList;
+    }
+
     @Override
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         String birthDate = dateFormat.format(getBirthDate());
 
-        final String format = MessageFormat.format("{0} {1} \nbirth date: {2}",
+        final String format = MessageFormat.format("\uD83D\uDC79 {0} {1} \nbirth date: {2}",
                 getFirstName(), getLastName(), birthDate);
         StringBuilder result = new StringBuilder(format.toString());
         if (isLiar)
             result.append("\nlies: " + getAmountOfLies());
         if (isMurderer)
             result.append("\nvictims: " + getAmountOfVictims());
+        if (sinsList.size() > 0)
+            result.append("\nsins: " + sinsList.size());
         return result.toString();
     }
 }

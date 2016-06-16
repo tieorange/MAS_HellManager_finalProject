@@ -3,7 +3,6 @@ package tieorange.edu.hellmanager.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +17,11 @@ import butterknife.ButterKnife;
 import butterknife.OnItemLongClick;
 import io.realm.RealmResults;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
-import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
-import tieorange.edu.hellmanager.OnItemRemovedFromRealm;
+import tieorange.edu.hellmanager.Activity.ui.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.R;
 import tieorange.edu.hellmanager.Tools;
-import tieorange.edu.hellmanager.main.Sinners.Sinner;
 
 
 /**

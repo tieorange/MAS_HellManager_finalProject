@@ -15,7 +15,6 @@ public class Sinner implements ILiar, IMurderer {
     public static final int NAME_MAX_LENGTH = 14;
     private EnumSet<SinnerType> sinnerTypes;
 
-
     private Set<Sin> sinsSet = new HashSet<>(); // Composition
     private List<SufferingProcess> sufferingProcessList = new ArrayList<>(); // with attribute // TODO: List<main.SufferingProcess> for having a many to many collection (not 1 - *)
     @NonNull
@@ -26,16 +25,6 @@ public class Sinner implements ILiar, IMurderer {
 
     private int amountOfLies;
     private int amountOfVictims;
-
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Sinner(String firstName, String lastName, Date birthDate, EnumSet<SinnerType> sinnerTypes, Integer amountOfLies, Integer amountOfVictims) {
         if (sinnerTypes != null) {
@@ -49,7 +38,8 @@ public class Sinner implements ILiar, IMurderer {
                 if (sinnerTypes.contains(SinnerType.MURDERER)) {
                     if (amountOfVictims != null) {
                         setAmountOfVictims(amountOfVictims);
-                    } else throw new IllegalArgumentException("amountOfVictims is mandatory for MURDERER");
+                    } else
+                        throw new IllegalArgumentException("amountOfVictims is mandatory for MURDERER");
                 }
                 setFirstName(firstName);
                 setLastName(lastName);
@@ -63,6 +53,7 @@ public class Sinner implements ILiar, IMurderer {
 
     /**
      * add new Sin
+     *
      * @param name name of the Sin
      */
     public void addSin(String name) {
@@ -78,6 +69,7 @@ public class Sinner implements ILiar, IMurderer {
 
     /**
      * check if Sinner already has this Sin
+     *
      * @param name name of the Sin
      * @return
      */
@@ -92,6 +84,7 @@ public class Sinner implements ILiar, IMurderer {
 
     /**
      * remove Sin
+     *
      * @param name sin name
      */
     public void removeSin(String name) {
@@ -108,6 +101,7 @@ public class Sinner implements ILiar, IMurderer {
 
     /**
      * add new suffering process
+     *
      * @param process
      */
     public void addSufferingProcess(SufferingProcess process) {
@@ -123,6 +117,7 @@ public class Sinner implements ILiar, IMurderer {
 
     /**
      * remove suffering process
+     *
      * @param process
      */
     public void removeSufferingProcess(SufferingProcess process) {
@@ -195,6 +190,14 @@ public class Sinner implements ILiar, IMurderer {
 
     public void setSinsSet(Set<Sin> sinsSet) {
         this.sinsSet = sinsSet;
+    }
+
+    public EnumSet<SinnerType> getSinnerTypes() {
+        return sinnerTypes;
+    }
+
+    public void setSinnerTypes(EnumSet<SinnerType> sinnerTypes) {
+        this.sinnerTypes = sinnerTypes;
     }
     //endregion
 

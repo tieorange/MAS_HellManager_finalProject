@@ -18,6 +18,7 @@ import java.util.Random;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import tieorange.edu.hellmanager.Activity.ui.OnItemRemovedFromRealm;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
