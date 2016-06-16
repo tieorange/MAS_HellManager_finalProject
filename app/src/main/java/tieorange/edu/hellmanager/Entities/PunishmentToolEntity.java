@@ -45,6 +45,7 @@ public class PunishmentToolEntity extends RealmObject {
 
     @Override
     public String toString() {
-        return MessageFormat.format("{0} \ndamage = {1}", name, damage);
+        return MessageFormat.format("{0} " +
+                "\n\uD83D\uDD25damage = {1}", name, damage);
     }
 }

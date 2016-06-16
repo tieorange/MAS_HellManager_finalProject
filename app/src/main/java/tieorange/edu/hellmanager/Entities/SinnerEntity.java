@@ -134,15 +134,15 @@ public class SinnerEntity extends RealmObject {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         String birthDate = dateFormat.format(getBirthDate());
 
-        final String format = MessageFormat.format("\uD83D\uDC79 {0} {1} \nbirth date: {2}",
+        final String format = MessageFormat.format("{0} {1} \nbirth date: {2}",
                 getFirstName(), getLastName(), birthDate);
         StringBuilder result = new StringBuilder(format.toString());
         if (isLiar)
-            result.append("\nlies: " + getAmountOfLies());
+            result.append("\n\uD83D\uDC3Dlies: " + getAmountOfLies());
         if (isMurderer)
-            result.append("\nvictims: " + getAmountOfVictims());
+            result.append("\n\uD83D\uDD2Bvictims: " + getAmountOfVictims());
         if (sinsList.size() > 0)
-            result.append("\nsins: " + sinsList.size());
+            result.append("\n\uD83D\uDE08sins: " + sinsList.size());
         return result.toString();
     }
 }
