@@ -204,7 +204,7 @@ public class Sinner implements ILiar, IMurderer {
     //region Getters and Setters and Methods from Interfaces
     @Override
     public void setAmountOfLies(Integer amountOfLies) {
-        if (amountOfLies >= 0) {
+        if (amountOfLies != null && amountOfLies >= 0) {
             this.amountOfLies = amountOfLies;
         } else {
             throw new IllegalArgumentException("amountOfLies should be >= 0");

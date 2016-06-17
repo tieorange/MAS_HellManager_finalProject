@@ -19,6 +19,7 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import tieorange.edu.hellmanager.Activity.ui.OnItemRemovedFromRealm;
+import tieorange.edu.hellmanager.Entities.DeadlySin;
 import tieorange.edu.hellmanager.Entities.PunishmentToolEntity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
@@ -73,6 +74,7 @@ public class Tools {
     public static void populateDummyData(Realm mRealm) {
         // Deps:
         TortureDepartmentEntity tortureDepartmentEntity = new TortureDepartmentEntity("Boiling room");
+        TortureDepartmentEntity tortureDepartmentEntity666 = new TortureDepartmentEntity("Dep# 666");
         List<PunishmentToolEntity> punishmentToolEntities = getDummyPunishmentToolEntityList(tortureDepartmentEntity);
 
 
@@ -83,6 +85,7 @@ public class Tools {
 //        tortureDepartmentEntity.id = UUID.randomUUID().toString();
 
         mRealm.beginTransaction();
+        mRealm.copyToRealmOrUpdate(tortureDepartmentEntity666);
         mRealm.copyToRealmOrUpdate(tortureDepartmentEntity);
         for (PunishmentToolEntity punishmentToolEntity : punishmentToolEntities) {
             mRealm.copyToRealmOrUpdate(punishmentToolEntity);
@@ -119,6 +122,10 @@ public class Tools {
             if (isMurderer) {
                 final SinnerEntity sinner = new SinnerEntity();
                 RealmList<SufferingProcessEntity> sufferingProcessEntities = getDummySufferingProcesses(tortureDepartmentEntity, sinner);
+                RealmList<DeadlySin> deadlySins = new RealmList<>();
+                deadlySins.add(new DeadlySin("Anger"));
+                deadlySins.add(new DeadlySin("Greed"));
+
                 sinner.setLiar(false);
                 sinner.setMurderer(true);
                 sinner.setAmountOfVictims(getRandomInt());
@@ -126,11 +133,18 @@ public class Tools {
                 sinner.setSufferingProcessList(sufferingProcessEntities);
                 sinner.setFirstName(dataFactory.getFirstName());
                 sinner.setLastName(dataFactory.getLastName());
+                sinner.setSinsList(deadlySins);
                 list.add(sinner);
 
             } else {
                 final SinnerEntity sinner = new SinnerEntity();
                 RealmList<SufferingProcessEntity> sufferingProcessEntities = getDummySufferingProcesses(tortureDepartmentEntity, sinner);
+                RealmList<DeadlySin> deadlySins = new RealmList<>();
+                deadlySins.add(new DeadlySin("Envy"));
+                deadlySins.add(new DeadlySin("Gluttony"));
+                deadlySins.add(new DeadlySin("Pride"));
+                deadlySins.add(new DeadlySin("Sloth"));
+
                 sinner.setLiar(true);
                 sinner.setMurderer(false);
                 sinner.setAmountOfLies(getRandomInt());
@@ -138,6 +152,7 @@ public class Tools {
                 sinner.setSufferingProcessList(sufferingProcessEntities);
                 sinner.setFirstName(dataFactory.getFirstName());
                 sinner.setLastName(dataFactory.getLastName());
+                sinner.setSinsList(deadlySins);
                 list.add(sinner);
             }
         }

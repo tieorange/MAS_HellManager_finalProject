@@ -176,6 +176,10 @@ public class AddSinnerActivity extends AppCompatActivity {
             Toast.makeText(AddSinnerActivity.this, "fill all text fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(!isValidSins()){
+            Toast.makeText(AddSinnerActivity.this, "select min 1 Sin", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Dep
         mRealm.beginTransaction();
@@ -194,6 +198,10 @@ public class AddSinnerActivity extends AppCompatActivity {
 
         Toast.makeText(AddSinnerActivity.this, firstName + " is burning very well \uD83D\uDE08", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private boolean isValidSins() {
+        return mSinsList.size() > 0;
     }
 
     private boolean ifBurnedLongEnough(Date starDate, Date finishDate) {

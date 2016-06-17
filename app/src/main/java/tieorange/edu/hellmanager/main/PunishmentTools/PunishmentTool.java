@@ -25,6 +25,7 @@ public abstract class PunishmentTool{
 
     private Ice elementalPowerIce;
     private Flame elementalPowerFlame;
+//    private Enum elementalPower // TODO: 17/06/16
 
     //region Constructors
     public PunishmentTool(String name, int damage, TortureDepartment tortureDepartment, Integer minTemperature) {

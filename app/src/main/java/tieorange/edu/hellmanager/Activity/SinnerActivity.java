@@ -61,7 +61,6 @@ public class SinnerActivity extends AppCompatActivity {
     private void initSins() {
         StringBuilder stringBuilder = new StringBuilder();
         final RealmList<DeadlySin> selectedSinsList = mSinnerEntity.getSinsList();
-//        if(selectedSinsList.size() < 1)
 
         for (DeadlySin deadlySin : selectedSinsList) {
             stringBuilder.append(deadlySin + "\n");
@@ -88,6 +87,22 @@ public class SinnerActivity extends AppCompatActivity {
         mUiBirthDate.setText(birthDate);
         mUiStartDate.setText(startDate);
         mUiFinishDate.setText(finishDate);
+
+        if (mSinnerEntity.isLiar()) {
+            mUiIsLiar.setChecked(true);
+            final String amountOfLies = String.valueOf(mSinnerEntity.getAmountOfLies());
+            mUiLies.setText(amountOfLies);
+        } else {
+            mUiLies.setText("0");
+        }
+
+        if (mSinnerEntity.isMurderer()) {
+            mUiIsMurderer.setChecked(true);
+            final String amountOfVictims = String.valueOf(mSinnerEntity.getAmountOfVictims());
+            mUiVictims.setText(amountOfVictims);
+        } else {
+            mUiVictims.setText("0");
+        }
     }
 
     @Override
