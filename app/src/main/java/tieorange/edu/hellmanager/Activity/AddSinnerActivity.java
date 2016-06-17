@@ -38,6 +38,7 @@ public class AddSinnerActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "ID";
     public static final String EXTRA_READ_ONLY = "READ_ONLY";
     private static final String TAG = AddSinnerActivity.class.getCanonicalName();
+    private static final int MINIMAL_PROCESS_DURATION = 1000;
 
     @Bind(R.id.first_name)
     public EditText mUiFirstName;
@@ -167,7 +168,10 @@ public class AddSinnerActivity extends AppCompatActivity {
         SufferingProcessEntity sufferingProcessEntity = buildSufferingProcessEntity(startDate, finishDate, sinnerEntity);
 
         // validation:
-
+        if(!ifBurnedLongEnough(startDate, finishDate)){
+            Toast.makeText(AddSinnerActivity.this, "suffering process must be longer than 1000 years", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         // Dep
@@ -188,7 +192,10 @@ public class AddSinnerActivity extends AppCompatActivity {
         Toast.makeText(AddSinnerActivity.this, firstName + " is burning very well \uD83D\uDE08", Toast.LENGTH_SHORT).show();
         finish();
     }
-
+    private boolean ifBurnedLongEnough(Date starDate, Date finishDate) {
+        int diffYears = MyTools.getDiffYears(starDate, finishDate);
+        return diffYears >= MINIMAL_PROCESS_DURATION;
+    }
     @NonNull
     private SufferingProcessEntity buildSufferingProcessEntity(Date startDate, Date finishDate, SinnerEntity sinnerEntity) {
         // SufferingProcess
