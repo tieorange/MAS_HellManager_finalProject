@@ -168,11 +168,14 @@ public class AddSinnerActivity extends AppCompatActivity {
         SufferingProcessEntity sufferingProcessEntity = buildSufferingProcessEntity(startDate, finishDate, sinnerEntity);
 
         // validation:
-        if(!ifBurnedLongEnough(startDate, finishDate)){
+        if (!ifBurnedLongEnough(startDate, finishDate)) {
             Toast.makeText(AddSinnerActivity.this, "suffering process must be longer than 1000 years", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (!isValidNames()) {
+            Toast.makeText(AddSinnerActivity.this, "fill all text fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Dep
         mRealm.beginTransaction();
@@ -192,10 +195,20 @@ public class AddSinnerActivity extends AppCompatActivity {
         Toast.makeText(AddSinnerActivity.this, firstName + " is burning very well \uD83D\uDE08", Toast.LENGTH_SHORT).show();
         finish();
     }
+
     private boolean ifBurnedLongEnough(Date starDate, Date finishDate) {
         int diffYears = MyTools.getDiffYears(starDate, finishDate);
         return diffYears >= MINIMAL_PROCESS_DURATION;
     }
+
+    private boolean isValidNames() {
+        boolean isValid = true;
+        if (mUiFirstName.getText().length() < 1 || mUiLastName.getText().length() < 1) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
     @NonNull
     private SufferingProcessEntity buildSufferingProcessEntity(Date startDate, Date finishDate, SinnerEntity sinnerEntity) {
         // SufferingProcess
