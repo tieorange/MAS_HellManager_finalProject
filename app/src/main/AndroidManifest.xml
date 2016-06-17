@@ -34,7 +34,8 @@
         <activity
             android:name=".Activity.AddPunishmentToolActivity"
             android:label="Add punishment tool" />
-        <activity android:name=".Activity.AddSinnerActivity"></activity>
+        <activity android:name=".Activity.AddSinnerActivity" />
+        <activity android:name=".Activity.SinnerActivity"></activity>
     </application>
 
 </manifest>

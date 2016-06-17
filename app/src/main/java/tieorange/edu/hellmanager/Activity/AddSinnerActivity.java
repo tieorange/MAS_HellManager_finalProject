@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.greenfrvr.hashtagview.HashtagView;
@@ -34,40 +36,36 @@ import tieorange.edu.hellmanager.main.MyUtils.MyTools;
 public class AddSinnerActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "ID";
+    public static final String EXTRA_READ_ONLY = "READ_ONLY";
     private static final String TAG = AddSinnerActivity.class.getCanonicalName();
 
     @Bind(R.id.first_name)
     public EditText mUiFirstName;
-
     @Bind(R.id.last_name)
     public EditText mUiLastName;
-
     @Bind(R.id.is_liar)
     public Switch mUiIsLiar;
-
     @Bind(R.id.amount_of_lies)
     public EditText mUiLies;
-
     @Bind(R.id.is_murderer)
     public Switch mUiIsMurderer;
-
     @Bind(R.id.amount_of_victims)
     public EditText mUiVictims;
-
     @Bind(R.id.birth_date)
     public DatePicker mUiBirthDate;
-
     @Bind(R.id.start_date)
     public DatePicker mUiStartDate;
-
     @Bind(R.id.sinsHashtags)
     public HashtagView mUiSinsHashtags;
-
     @Bind(R.id.finish_date)
     public DatePicker mUiFinishDate;
+    @Bind(R.id.add)
+    public Button mUiAddButton;
+
     private TortureDepartmentEntity mDepartment;
     private Realm mRealm;
     private List<DeadlySin> mSinsList = new ArrayList<>();
+    private boolean mIsReadOnly = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,35 +79,28 @@ public class AddSinnerActivity extends AppCompatActivity {
         initDatePickers();
 
         initHashtags();
+
+        checkIfReadOnly();
+    }
+
+    private void checkIfReadOnly() {
+        Log.d(TAG, "checkIfReadOnly() called with: " + "readonly = " + mIsReadOnly);
+        if (!mIsReadOnly) return;
+
+        mUiFirstName.setFocusable(false);
+        mUiLastName.setFocusable(false);
+
+        mUiIsLiar.setEnabled(false);
+        mUiIsMurderer.setEnabled(false);
+        mUiSinsHashtags.setInSelectMode(false);
+        mUiBirthDate.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+        mUiStartDate.setFocusable(false);
+        mUiFinishDate.setEnabled(false);
+        mUiAddButton.setVisibility(View.GONE);
     }
 
     private void initHashtags() {
         List<DeadlySin> sinsList = DeadlySin.getSevenDeadlySins();
-/*
-        HashtagView.DataTransform<String> stateTransform = new HashtagView.DataStateTransform<String>() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @Override
-            public CharSequence prepare(String item) {
-                String label = item;
-                SpannableString spannableString = new SpannableString(label);
-//                spannableString.setSpan(new SuperscriptSpan(), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                spannableString.setSpan(new ForegroundColorSpan(getColor(color1)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                spannableString.setSpan(new BackgroundColorSpan(getColor(color1)), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                return spannableString;
-            }
-
-            @TargetApi(Build.VERSION_CODES.M)
-            @Override
-            public CharSequence prepareSelected(String item) {
-                String label = item;
-                SpannableString spannableString = new SpannableString(label);
-//                spannableString.setSpan(new SuperscriptSpan(), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                spannableString.setSpan(new ForegroundColorSpan(getColor(color1)), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-//                spannableString.setSpan(new StrikethroughSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                return spannableString;
-            }
-        };*/
 
         mUiSinsHashtags.setData(sinsList, new HashtagView.DataTransform<DeadlySin>() {
             @Override
@@ -132,8 +123,6 @@ public class AddSinnerActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        mUiSinsHashtags.setInSelectMode(true);
     }
 
     private void initDatePickers() {
@@ -147,11 +136,13 @@ public class AddSinnerActivity extends AppCompatActivity {
     private void getExtras() {
         Intent intent = getIntent();
         final String id = intent.getStringExtra(EXTRA_ID);
+        mIsReadOnly = intent.getBooleanExtra(EXTRA_READ_ONLY, false);
         mDepartment = mRealm.where(TortureDepartmentEntity.class).equalTo("id", id).findFirst();
     }
 
     @OnClick(R.id.add)
     public void onClickAdd() {
+
         String firstName = mUiFirstName.getText().toString();
         String lastName = mUiLastName.getText().toString();
 
@@ -174,6 +165,10 @@ public class AddSinnerActivity extends AppCompatActivity {
         Date finishDate = getDateFromDatePicket(mUiFinishDate);
         SinnerEntity sinnerEntity = buildSinnerEntity(firstName, lastName, amountOfLies, amountOfVictims, birthDate);
         SufferingProcessEntity sufferingProcessEntity = buildSufferingProcessEntity(startDate, finishDate, sinnerEntity);
+
+        // validation:
+
+
 
         // Dep
         mRealm.beginTransaction();

@@ -1,6 +1,7 @@
 package tieorange.edu.hellmanager.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,9 +15,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
 import io.realm.RealmResults;
+import tieorange.edu.hellmanager.Activity.AddSinnerActivity;
 import tieorange.edu.hellmanager.Activity.DepartmentTabsActivity;
+import tieorange.edu.hellmanager.Activity.SinnerActivity;
 import tieorange.edu.hellmanager.Entities.SinnerEntity;
 import tieorange.edu.hellmanager.Entities.SufferingProcessEntity;
 import tieorange.edu.hellmanager.Activity.ui.OnItemRemovedFromRealm;
@@ -92,6 +96,18 @@ public class SinnersFragment extends SuperListFragment {
         });
 
         return true;
+    }
+
+    @OnItemClick(R.id.listView)
+    public void onItemClick(int position) {
+        final SinnerEntity sinnerEntity = mList.get(position);
+        if (sinnerEntity == null) return;
+
+        Intent intent = new Intent(getActivity(), SinnerActivity.class);
+        intent.putExtra(SinnerActivity.EXTRA_SINNER_ID, sinnerEntity.getId());
+
+        startActivity(intent);
+
     }
 
     private List<SinnerEntity> getList() {

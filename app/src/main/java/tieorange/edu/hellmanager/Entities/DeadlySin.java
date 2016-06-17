@@ -52,9 +52,23 @@ public class DeadlySin extends RealmObject {
 
     @Override
     public String toString() {
-        return "DeadlySin{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeadlySin deadlySin = (DeadlySin) o;
+
+        return getName().equals(deadlySin.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
     }
 
     public String getName() {
